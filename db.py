@@ -7,24 +7,25 @@ from config import *
 
 # Carrega variáveis de ambiente do arquivo .env
 load_dotenv()
-
-# --- Configurações de Conexão (Pegas do .env) ---
-db_host = os.getenv("DB_HOST", "localhost")
-db_user = os.getenv("DB_USER")
-db_password = os.getenv("DB_PASSWORD")
-db_database = os.getenv("DB_DATABASE")
+# --- Configurações de Conexão (lê do ambiente com fallback para config.py) ---
+# Procura variáveis de ambiente definidas no PythonAnywhere ou .env
+DB_HOST = os.getenv("DB_HOST") or globals().get("HOST") or "localhost"
+DB_USER = os.getenv("DB_USER") or globals().get("USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD") or globals().get("PASSWORD")
+DB_DATABASE = os.getenv("DB_DATABASE") or globals().get("DATABASE")
 
 
 def conectar():
+    """Conecta ao MySQL usando variáveis de ambiente com fallback para config.py."""
     conexao = mysql.connector.connect(
-        host=HOST,   # variável do config.py
-        user=USER,   # variável do config.py
-        password=PASSWORD,   # variável do config.py
-        database=DATABASE   # variável do config.py
+        host=DB_HOST,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        database=DB_DATABASE,
     )
     if conexao.is_connected():
-        print("Conexão com BD OK!")
-    
+        print(f"Conexão com BD OK! Host: {DB_HOST}")
+
     return conexao
 
 
