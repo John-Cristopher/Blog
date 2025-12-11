@@ -33,6 +33,8 @@ def conectar():
 
 def listar_post():
     """Retorna uma lista de todas as postagens ativas."""
+    import mysql.connector
+
     try:
         with conectar() as conexao:
             sql = """
