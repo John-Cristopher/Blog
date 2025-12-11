@@ -1238,7 +1238,7 @@ footer {
 
 /* O restante (Nome e Usuário) usará o espaço que sobrar de forma igualitária (Flex: 1) */
 
-/* Fundo estilo fibra de carbono */
+/* Fundo estilo fibra de carbono
 .container {
     width: 100%;
     height: 100%;
@@ -1269,7 +1269,7 @@ footer {
     100% {
         background-position: 40px 40px;
     }
-}
+} */
 
 /* Dar mais espaço para a coluna de usuários (prioridade) e reduzir a segunda coluna */
 #info .col_info:first-child {

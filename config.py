@@ -6,14 +6,14 @@ SENHA_ADMIN = "Umamusume123"
 ambiente = "local"
 
 if ambiente == "local":
-    # ------ INFORMAÇÕES VINDAS DO DATABASE DO PYTHON ANYWHERE
-    HOST = "link python anywhere"
-    USER = "user python anywhere"
-    PASSWORD = "senha database python anywhere"
-    DATABASE = "nome do database python anywhere"
-else:
     # ------ INFORMAÇÕES DO SEU BLOG LOCAL, DEIXE COMO ESTÁ
     HOST = "localhost"
     USER = "root"
     PASSWORD = "senai"
     DATABASE = "blog_john"
+elif ambiente == "produção":
+    # ------ INFORMAÇÕES VINDAS DO DATABASE DO PYTHON ANYWHERE
+    HOST = "link python anywhere"
+    USER = "user python anywhere"
+    PASSWORD = "senha database python anywhere"
+    DATABASE = "nome do database python anywhere"
