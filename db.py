@@ -17,14 +17,14 @@ db_database = os.getenv("DB_DATABASE")
 
 def conectar():
     conexao = mysql.connector.connect(
-        host=HOST,  # variável do config.py
-        user=USER,  # variável do config.py
-        password=PASSWORD,  # variável do config.py
-        database=DATABASE,  # variável do config.py
+        host=HOST,   # variável do config.py
+        user=USER,   # variável do config.py
+        password=PASSWORD,   # variável do config.py
+        database=DATABASE   # variável do config.py
     )
     if conexao.is_connected():
         print("Conexão com BD OK!")
-
+    
     return conexao
 
 
@@ -33,8 +33,6 @@ def conectar():
 
 def listar_post():
     """Retorna uma lista de todas as postagens ativas."""
-    import mysql.connector
-
     try:
         with conectar() as conexao:
             sql = """
