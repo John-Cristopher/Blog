@@ -5,7 +5,7 @@ SENHA_ADMIN = "Umamusume123"
 # Variável de controle de ambiente, poderá ser "local" ou "produção"
 ambiente = "local"
 
-if ambiente == "produção":
+if ambiente == "local":
     # ------ INFORMAÇÕES VINDAS DO DATABASE DO PYTHON ANYWHERE
     HOST = "link python anywhere"
     USER = "user python anywhere"
