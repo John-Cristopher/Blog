@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block conteudo %}
+<main id="login_main">
+    <div class="login_container">
+        <h1>Criar Conta</h1>
+        <form class="login_form" method="POST" action="/signin">
+            <input type="text" name="username" placeholder="Usuário..." required autocomplete="off" />
+            <input type="text" name="nome" placeholder="Nome completo..." required />
+            <input type="email" name="email" placeholder="Email..." required autocomplete="off" />
+            <input type="password" name="password" placeholder="Senha..." required autocomplete="off" />
+            <p>Já tem uma conta? <a href="/login">Faça login</a></p>
+            <button type="submit" class="login_btn">Criar conta</button>
+        </form>
+        {% with msg = get_flashed_messages()|first %} {% if msg %}
+        <p class="flash">{{ msg }}</p>
+        {% endif %} {% endwith %}
+    </div>
+</main>
+{% endblock %}

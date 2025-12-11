@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="inicio">
+  <div class="coluna_esquerda">
+    <div class="carousel-container">
+      <div class="carousel">
+        <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='img/Killzone.jpg') }}" alt="Imagem 1" />
+        </div>
+        <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='img/Enclave_for_america.jpg') }}" alt="Imagem 2" />
+        </div>
+        <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='img/Fallout_nova_vegas.jpg') }}" alt="Imagem 3" />
+        </div>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="carousel-dots">
+        <span class="dot active" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+    </div>
+  </div>
+  <div class="col_centro">
+    {% if 'usuario' in session %}
+
+    <div class="form_post">
+      <form action="{{ '/editarpost/' + post.idPost|string if post else '/novopost' }}" method="POST">
+        <p>Olá, {{ session['usuario'] }}</p>
+        <input type="text" name="titulo" placeholder="Título da postagem" required class="conteudo"
+          value="{{ post.titulo if post else '' }}" />
+        <textarea class="conteudo" name="conteudo" required>{{ post.conteudo if post else '' }}</textarea>
+        <button class="submit" type="submit">{{ 'Editar' if post else 'Postar' }}</button>
+        {% if post %}
+        <a href="/" class="submit">
+          Cancelar edição
+        </a>
+        {% endif %}
+        {% with msg = get_flashed_messages()|first %}
+        {% if msg %}
+        <p class="flash">{{ msg }}</p>
+        {% endif %}
+        {% endwith %}
+      </form>
+    </div>
+    {% endif %}
+    <div class="feed">
+      {% if not postagens %}
+      <p>Não há nada aqui além de nós, Galegos.</p>
+      <img src="{{ url_for('static', filename='img/Drift_350z.gif') }}" alt="bebe zumbi" width="300px" />
+      {% else %}
+      {% for post in postagens %}
+      <div class="post">
+        <div class="post_header">
+          <img src="{{ url_for('static', filename='uploads/' + (post.get('foto') or 'default.png')) }}"
+            alt="Foto do Autor" />
+          <div class="author-info">
+            <p class="author-name">{{ post.nome_autor }} disse:</p>
+          </div>
+          <div class="post-date">
+            <p>{{ post.dataPost.strftime('%d/%m/%y') }}</p>
+          </div>
+        </div>
+        <div class="post_content">
+          <h2>{{ post.titulo }}</h2>
+          <p>{{ post.conteudo }}</p>
+        </div>
+        {% if post.idUsuario == session.get('idUsuario') or 'admin' in session %}
+        <div class="post_actions">
+          {% if 'usuario' in session %}
+          <a href="/editarpost/{{ post.idPost }}">Editar</a>
+          {% endif %}
+          <a href="/excluirpost/{{ post.idPost }}"
+            onclick="return confirm ('Deletar o post permanentemente? Isso é muito tempo!')">Excluir</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="coluna_direita">
+    <div class="carousel-container">
+      <div class="carousel">
+        <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='img/Combine_we_trust.png') }}" alt="Imagem 4" />
+        </div>
+        <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='img/Combine_need_me.png') }}" alt="Imagem 5" />
+        </div>
+        <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='img/Civil_protection.png') }}" alt="Imagem 6" />
+        </div>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="carousel-dots">
+        <span class="dot active" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+      </div>
+    </div>
+
+    <div class="posts_overall">
+      <!-- Post mais famoso -->
+      <div class="card famous-post">
+        <h3>Post Mais Famoso</h3>
+        {% if post_mais_famoso %}
+        <div class="famous-header">
+          <img src="{{ url_for('static', filename='uploads/' + (post_mais_famoso.get('foto') or 'default.png')) }}"
+            alt="Foto do Autor" />
+          <div>
+            <p class="author-name">{{ post_mais_famoso.nome_autor }}</p>
+            {% if post_mais_famoso.dataPost %}
+            <p class="small">{{ post_mais_famoso.dataPost.strftime('%d/%m/%y') }}</p>
+            {% endif %}
+          </div>
+        </div>
+        <h4>{{ post_mais_famoso.titulo }}</h4>
+        <p>{{ post_mais_famoso.conteudo|truncate(150) }}</p>
+        {% else %}
+        <p>Não há posts suficientes para determinar um destaque.</p>
+        {% endif %}
+      </div>
+
+      <!-- Usuário com mais posts -->
+      <div class="card top-user">
+        <h3>Usuário com Mais Posts</h3>
+        {% if usuario_mais_posts %}
+        <div class="user-header">
+          <img src="{{ url_for('static', filename='uploads/' + (usuario_mais_posts.get('foto') or 'default.png')) }}"
+            alt="Foto do Usuário" />
+          <div>
+            <p class="author-name">{{ usuario_mais_posts.nome_autor }}</p>
+            <p class="small">{{ usuario_mais_posts.total_posts }} posts</p>
+          </div>
+        </div>
+        {% else %}
+        <p>Nenhum usuário com postagens encontradas.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

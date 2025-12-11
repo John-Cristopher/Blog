@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="perfil">
+
+    <!-- Prevenção do TypeError: Garante que 'usuario.foto' não seja None, usando 'default.png' como fallback -->
+    {% set foto_perfil = usuario.foto if usuario.foto else 'default.png' %}
+    <img src="{{ url_for('static', filename='uploads/' + foto_perfil) }}" alt="Foto do Usuário" />
+    <h1>Olá, {{ usuario.nome }}!</h1>
+
+    <hr>
+    <h2>Atualizar Perfil</h2>
+
+    <!-- Este formulário requer que você crie a rota @app.route("/perfil", methods=["POST"]) no app.py -->
+    <form action="/perfil" method="POST" enctype="multipart/form-data">
+
+        <label for="nome">Nome do Usuário: </label>
+        <input type="text" name="nome" value="{{ usuario.nome }}" required>
+
+        <!-- Assumindo que o campo 'user' no banco de dados armazena o username/login -->
+        <label for="user">User: </label>
+
+        <input type="text" name="user" value="{{ usuario.user }}" required>
+
+        <a href="/reset_password"><button type="button">Alterar Senha</button></a>
+
+        <label>Foto: </label>
+        <!-- Campo para upload de arquivo com restrição de tipos -->
+        <input type="file" name="foto" accept=".jpg, .png, .webp">
+
+        <button type="submit">Salvar alterações</button>
+
+        {% with msg = get_flashed_messages()|first %}
+        {% if msg %}
+        <p class="flash">{{ msg }}</p>
+        {% endif %}
+        {% endwith %}
+    </form>
+
+    <hr>
+
+</div>
+{% endblock %}

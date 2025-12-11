@@ -1,0 +1,1560 @@
+/* --- ESTILOS GERAIS --- */
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+
+/* Cores sugeridas para o tema noturno */
+:root {
+    --fundo-principal: #121217;
+    --fundo-elemento: #1e1e24;
+    --texto-principal: #e0e0e0;
+    --texto-secundario: #a0a0a0;
+    --neon-azul: #00bcd4;
+    --neon-vermelho: #ff4081;
+    --borda-fina: #2c2c34;
+    --sombra-neon-azul: 0 0 8px rgba(0, 188, 212, 0.6);
+    --sombra-neon-vermelho: 0 0 8px rgba(255, 64, 129, 0.6);
+}
+
+html {
+    height: 100%;
+}
+
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    height: 100%;
+    font-family: "Open Sans", "Arial", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    /* Fundo textura fibra de carbono discreta */
+    background-color: #0a0a0d;
+    background-image: linear-gradient(
+            90deg,
+            transparent 24%,
+            rgba(255, 255, 255, 0.02) 25%,
+            rgba(255, 255, 255, 0.02) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(255, 255, 255, 0.02) 75%,
+            rgba(255, 255, 255, 0.02) 76%,
+            transparent 77%,
+            transparent
+        ),
+        linear-gradient(
+            0deg,
+            transparent 24%,
+            rgba(255, 255, 255, 0.02) 25%,
+            rgba(255, 255, 255, 0.02) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(255, 255, 255, 0.02) 75%,
+            rgba(255, 255, 255, 0.02) 76%,
+            transparent 77%,
+            transparent
+        );
+    background-size: 50px 50px;
+    overflow-x: hidden;
+    /* Cor do texto principal clara */
+    color: var(--texto-principal);
+    position: relative;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 8px; /* Largura da barra vertical */
+    height: 8px; /* Altura da barra horizontal */
+    background: transparent;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a1a; /* Cor escura sutil */
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--neon-azul); /* Cor Neon Azul para o polegar */
+    border-radius: 10px;
+    border: 2px solid #1a1a1a; /* Borda mais escura para dar contraste */
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #008c9d; /* Tom de azul ligeiramente mais escuro no hover */
+}
+
+/* --- HEADER / NAVIGATION --- */
+
+header {
+    padding: 5px 0;
+    /* Fundo do Header Escuro */
+    background-color: var(--fundo-elemento);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Sombra mais sutil no modo escuro */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    /* Borda inferior sutil */
+    border-bottom: 1px solid var(--borda-fina);
+    position: relative; /* Necessário para posicionamento absoluto do nav */
+    z-index: 10;
+}
+
+header nav {
+    position: absolute;
+    right: 0;
+    padding-right: 55px;
+}
+
+.acao_btn,
+header .login_btn {
+    margin-top: 15px;
+    align-self: center;
+    padding: 8px 25px;
+    background-color: transparent;
+    /* Cor do botão de login em destaque (Neon Azul) */
+    color: var(--neon-azul);
+    border: 1px solid var(--neon-azul);
+    border-radius: 20px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    /* Adiciona brilho neon sutil no botão */
+    box-shadow: var(--sombra-neon-azul);
+    transition: all 0.3s ease;
+}
+
+.acao_btn:hover,
+header .login_btn:hover {
+    /* Preenchimento no hover com brilho mais forte */
+    background-color: var(--neon-azul);
+    color: var(--fundo-elemento); /* Cor de texto que se destaca no azul */
+    box-shadow: 0 0 12px rgba(0, 188, 212, 0.8);
+    transform: none;
+}
+
+header .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+}
+
+header .logo img {
+    width: 120px;
+    margin-right: 15px;
+}
+
+header .logo h1 {
+    font-size: 2.2em;
+    font-weight: 600;
+    /* Cor do logo mais clara */
+    color: var(--texto-principal);
+    letter-spacing: 0px;
+    /* Adiciona um efeito neon suave ao título do blog */
+    text-shadow: 0 0 8px rgba(0, 188, 212, 0.6), 0 0 15px rgba(0, 188, 212, 0.3);
+}
+
+/* --- Main Content Layout --- */
+
+main {
+    flex: 1;
+    padding: 5px 0px;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.inicio {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.coluna_esquerda,
+.coluna_direita {
+    width: 15%;
+    min-height: 0;
+    padding: 0 5px;
+}
+.col_centro {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    min-height: 0;
+}
+
+/* --- Formulário de Postagem --- */
+
+.form_post {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: var(--fundo-elemento);
+    border-radius: 6px;
+    border: 1px solid var(--borda-fina);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.form_post form {
+    width: 100%;
+}
+
+.form_post input[type="text"] {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    background-color: #2a2a32;
+    color: var(--texto-principal);
+    border: 1px solid #444;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-weight: 600;
+    font-size: 1.05em;
+}
+
+.form_post textarea {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 15px;
+    background-color: #2a2a32;
+    color: var(--texto-principal);
+    border: 1px solid #444;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 140px;
+    resize: vertical;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 1em;
+}
+
+.form_post input[type="text"]:focus,
+.form_post textarea:focus {
+    border-color: var(--neon-azul);
+    outline: none;
+    box-shadow: var(--sombra-neon-azul);
+}
+
+.submit {
+    /* Cor do botão em Neon Azul */
+    background-color: var(--neon-azul);
+    color: var(--fundo-elemento);
+    width: 30%;
+    padding: 10px 10px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.3s ease, box-shadow 0.3s;
+    /* Brilho neon no botão de submit */
+    box-shadow: var(--sombra-neon-azul);
+}
+
+.submit:hover {
+    /* Cor no hover sutilmente mais escura ou mais intensa */
+    background-color: #008c9d;
+    /* Brilho mais intenso no hover */
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.8);
+    transform: none;
+}
+
+.flash {
+    /* Manter a notificação com cores de contraste, mas com fundo escuro */
+    color: #a3e0b7; /* Verde neon claro */
+    background: #2b3a2b; /* Fundo verde escuro */
+    border: 1px solid #455a45;
+    border-radius: 4px;
+    padding: 12px 18px;
+    margin-top: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    /* Brilho sutil para notificação */
+    box-shadow: 0 0 5px rgba(163, 224, 183, 0.5);
+}
+
+/* --- Feed e Posts (Correção do Problema 1: Tamanho da Div e Foto) --- */
+
+.feed {
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
+    overflow-y: auto;
+}
+
+/* Scrollbar com cores escuras */
+.feed::-webkit-scrollbar {
+    width: 0.3rem;
+    background: var(--fundo-principal);
+}
+.feed::-webkit-scrollbar-thumb {
+    background: #444; /* Cor escura para o polegar */
+    border-radius: 4px;
+}
+.feed::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+.feed .post {
+    /* APLICANDO VARIAVEIS DE COR E ESTILOS NEON AQUI */
+    width: 100%;
+    /* Fundo dos posts escuro */
+    background-color: var(--fundo-elemento);
+    border-radius: 6px;
+    /* Borda sutil escura */
+    border: 1px solid var(--borda-fina);
+    /* Sombra sutil para dar profundidade no modo escuro */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 8px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feed .post:hover {
+    /* Hover com borda em Neon Azul e brilho sutil */
+    border-color: var(--neon-azul);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), var(--sombra-neon-azul);
+    transform: none;
+}
+
+.feed .post .post_header {
+    font-size: 0.9em;
+    color: var(--texto-secundario);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--borda-fina);
+    padding-bottom: 12px;
+    justify-content: space-between;
+}
+
+.feed .post .post_header img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #2a2a32;
+    border: 2px solid var(--neon-vermelho);
+    flex-shrink: 0;
+}
+
+.feed .post .post_header .author-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.feed .post .post_header p {
+    margin: 0;
+    line-height: normal;
+    color: var(--texto-secundario);
+    font-weight: 400;
+}
+
+.feed .post .post_header .author-name {
+    color: var(--neon-azul);
+    font-weight: 700;
+    text-shadow: 0 0 4px rgba(0, 188, 212, 0.3);
+    margin: 0;
+}
+
+.feed .post .post_header .post-date {
+    margin-left: auto;
+    font-size: 0.85em;
+    color: var(--texto-secundario);
+    white-space: nowrap;
+}
+
+.feed .post h2 {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--neon-azul);
+    margin-bottom: 12px;
+    margin-top: 8px;
+    text-shadow: 0 0 6px rgba(0, 188, 212, 0.5);
+    line-height: 1.4;
+}
+
+.feed .post p {
+    /* Cor do corpo do texto mais clara */
+    color: var(--texto-principal);
+    line-height: 1.5;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.feed .post .post_actions {
+    display: flex;
+    margin-top: 15px;
+    padding-top: 12px;
+    gap: 15px;
+    border-top: 1px solid var(--borda-fina);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.feed .post a,
+.feed .post button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    color: var(--neon-vermelho);
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: color 0.3s, text-shadow 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    font-family: inherit;
+}
+
+.feed .post a:hover,
+.feed .post button:hover {
+    color: #ff80ab;
+    text-shadow: 0 0 5px rgba(255, 64, 129, 0.6);
+    transform: scale(1.05);
+}
+
+.like-btn {
+    font-size: 1.1em;
+}
+
+.like-btn.liked {
+    color: #ff4081;
+    text-shadow: 0 0 8px rgba(255, 64, 129, 0.8);
+}
+
+.comments-btn::before {
+    content: "💬 ";
+}
+
+.like-btn::before {
+    content: "♡ ";
+}
+
+/* --- PÁGINA PERFIL (Correção do Problema 3) --- */
+
+.perfil {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    /* Aplica variáveis de cor neon */
+    background-color: var(--fundo-elemento);
+    border-radius: 10px;
+    border: 1px solid var(--neon-azul); /* Borda de destaque neon */
+    box-shadow: var(--sombra-neon-azul); /* Sombra de destaque neon */
+    text-align: center;
+}
+
+.perfil h1 {
+    color: var(--neon-azul);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px rgba(0, 188, 212, 0.4);
+}
+
+.perfil h2 {
+    color: var(--texto-principal);
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--borda-fina);
+    padding-bottom: 10px;
+}
+
+/* AUMENTA O TAMANHO DA FOTO NA PÁGINA DE PERFIL */
+.perfil img {
+    width: 180px; /* Destaque maior */
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--neon-vermelho); /* Borda de destaque Pink/Neon */
+    box-shadow: 0 0 15px rgba(255, 64, 129, 0.7); /* Brilho neon na foto */
+    margin: 0 auto 30px;
+    transition: transform 0.3s ease;
+}
+
+.perfil img:hover {
+    transform: scale(1.05);
+}
+
+.perfil form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.perfil label {
+    color: var(--texto-secundario);
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.perfil input[type="text"],
+.perfil input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #282a36;
+    color: var(--texto-principal);
+}
+
+.perfil button[type="submit"] {
+    /* Reutilizando o estilo Neon Azul para o botão de salvar */
+    background-color: var(--neon-azul);
+    color: var(--fundo-elemento);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--sombra-neon-azul);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.perfil button[type="submit"]:hover {
+    background-color: #008c9d;
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.8);
+}
+
+/* --- FOOTER --- */
+
+footer {
+    padding: 20px 0;
+    /* Fundo do Footer Escuro */
+    background-color: var(--fundo-elemento);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Cor do texto do footer secundária */
+    color: var(--texto-secundario);
+    font-size: 0.85em;
+    /* Sombra sutil para profundidade */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
+    /* Linha de separação escura */
+    border-top: 1px solid var(--borda-fina);
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Login Page --- */
+
+#login_main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login_container {
+    /* Fundo do Container Escuro */
+    background-color: var(--fundo-elemento);
+    padding: 40px;
+    border-radius: 6px;
+    /* Borda e Sombra de Container */
+    border: 1px solid var(--borda-fina);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: auto;
+    max-width: 380px;
+    text-align: center;
+}
+.login_container h2 {
+    margin-bottom: 25px;
+    /* Título em Neon Azul */
+    color: var(--neon-azul);
+    font-weight: 300;
+    text-shadow: 0 0 5px rgba(0, 188, 212, 0.4);
+}
+.login_form input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    /* Fundo e borda dos inputs escuros */
+    background-color: #2a2a32;
+    color: var(--texto-principal);
+    border: 1px solid #444;
+    height: auto;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.login_form input:focus {
+    /* Foco em Neon Azul */
+    border-color: var(--neon-azul);
+    outline: none;
+    box-shadow: var(--sombra-neon-azul);
+}
+.login_form button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    /* Botão em Neon Vermelho/Pink para contraste */
+    background-color: var(--neon-vermelho);
+    color: var(--fundo-elemento);
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    /* Brilho neon no botão */
+    box-shadow: var(--sombra-neon-vermelho);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+.login_form button:hover {
+    /* Cor no hover sutilmente mais escura ou intensa */
+    background-color: #c51162;
+    /* Brilho mais intenso no hover */
+    box-shadow: 0 0 15px rgba(255, 64, 129, 0.8);
+}
+
+.back_to_blog {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--texto-secundario); /* Cor do texto secundária */
+}
+
+/* --- Signin / Cadastro --- */
+
+.signin_container {
+    background-color: var(--fundo-elemento);
+    padding: 40px;
+    border-radius: 6px;
+    border: 1px solid var(--borda-fina);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: auto;
+    max-width: 420px;
+    text-align: center;
+}
+.signin_form input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #2a2a32;
+    color: var(--texto-principal);
+    border: 1px solid #444;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.signin_form input:focus {
+    border-color: var(--neon-azul);
+    outline: none;
+    box-shadow: var(--sombra-neon-azul);
+}
+
+.back_to_blog a {
+    text-decoration: none;
+    /* Link em Neon Vermelho/Pink */
+    color: var(--neon-vermelho);
+    font-weight: 600;
+    transition: color 0.3s;
+}
+.back_to_blog a:hover {
+    color: #ff80ab;
+}
+
+/* --- Dashboard Layout --- */
+
+#dashboard {
+    /* AUMENTADO de 1300px para 1500px */
+    max-width: 1500px;
+    margin: 15px auto;
+    /* REDUZIDO de 20px para 10px */
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Seção de Dados (Gráficos/Resumos) --- */
+
+#dados {
+    width: 100%;
+    min-height: 80px;
+    /* Fundo do Bloco Escuro */
+    background-color: var(--fundo-elemento);
+    /* Borda e Sombra de Bloco */
+    border: 1px solid var(--borda-fina);
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Placeholder em cor secundária */
+    color: var(--texto-secundario);
+    font-weight: 300;
+    font-size: 1em;
+}
+#dados:empty::before {
+    content: "Dashboard de Dados";
+}
+
+/* --- Página de Erro 404 --- */
+.error-page {
+    text-align: center;
+    padding: 50px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--fundo-elemento);
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--borda-fina);
+}
+
+.error-page h1 {
+    font-size: 2.5em;
+    color: var(--neon-azul);
+    margin-bottom: 20px;
+    text-shadow: var(--sombra-neon-azul);
+}
+
+.error-page p {
+    font-size: 1.2em;
+    color: var(--texto-secundario);
+    margin-bottom: 30px;
+}
+
+.error-image {
+    margin: 30px 0;
+}
+
+.error-image img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--borda-fina);
+}
+
+.error-page .home-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--neon-azul);
+    color: var(--texto-principal); /* Usando a variável */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: var(--sombra-neon-azul);
+}
+
+.error-page .home-button:hover {
+    background-color: #008c9d; /* Usando tom escuro para hover */
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--neon-azul);
+}
+
+/* --- Seção de Informações (Tabelas/Listas) --- */
+
+#info {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.col_info {
+    flex: 1;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+
+    /* Fundo da Coluna Escuro */
+    background-color: var(--fundo-elemento);
+    /* Borda e Sombra de Coluna */
+    border: 1px solid var(--borda-fina);
+    border-radius: 6px;
+    padding: 15px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+    max-height: calc(70vh - 80px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 18px;
+}
+
+.col_info h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    /* Título da seção em Neon Azul */
+    color: var(--neon-azul);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    /* Linha separadora mais escura */
+    border-bottom: 1px solid var(--borda-fina);
+    text-shadow: 0 0 3px rgba(0, 188, 212, 0.3);
+}
+
+.col_info p {
+    font-size: 0.95em;
+    /* Cor do texto mais clara */
+    color: var(--texto-principal);
+    padding: 10px 0;
+    margin: 0;
+    /* Linha pontilhada muito escura e sutil */
+    border-bottom: 1px dashed #3a3a42;
+    transition: background-color 0.2s;
+}
+
+.col_info p:last-child {
+    border-bottom: none;
+}
+
+.col_info p:hover {
+    /* Highlight sutil no hover (cor de carro) */
+    background-color: #2a2a32;
+}
+
+.col_info p strong {
+    font-weight: 600;
+    /* Destaque em Neon Vermelho/Pink */
+    color: var(--neon-vermelho);
+    text-shadow: 0 0 4px rgba(255, 64, 129, 0.5);
+}
+.user_info {
+    font-size: 0.9em;
+    color: var(--texto-secundario);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* Tabela do Dashboard - aumenta espaçamento e largura para evitar informação apertada */
+#info table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* ESSENCIAL para evitar quebra */
+    font-size: 0.9em;
+}
+
+#info table thead th {
+    white-space: nowrap; /* Impede a quebra de linha do texto do cabeçalho */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona '...' se o texto for muito longo */
+    padding: 8px 6px;
+    font-size: 0.85em;
+}
+
+#info table tbody td {
+    padding: 8px 6px;
+    vertical-align: top;
+    border-bottom: 1px dashed #3a3a42;
+    color: var(--texto-principal);
+    font-size: 0.9em;
+}
+
+/* Espaço reservado para botões de ação */
+.acoes {
+    width: 120px;
+    text-align: center;
+}
+
+.status-badge {
+    font-weight: bold;
+    font-size: 0.85em;
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.status-ativo {
+    color: #4caf50;
+}
+
+.status-cell {
+    width: 100px;
+    text-align: center;
+}
+
+.status-banido {
+    color: #ff6b6b;
+}
+
+/* ===== DROPDOWN DE AÇÕES ===== */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.btn-dropdown {
+    background-color: var(--neon-azul);
+    color: var(--fundo-elemento);
+    padding: 6px 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    border: 1px solid var(--neon-azul);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.4);
+}
+
+.btn-dropdown:hover {
+    background-color: #008c9d;
+    box-shadow: 0 0 12px rgba(0, 188, 212, 0.8);
+}
+
+.btn-dropdown-sm {
+    padding: 4px 8px;
+    font-size: 0.7em;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--fundo-elemento);
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--borda-fina);
+    border-radius: 4px;
+    z-index: 100;
+    margin-top: 4px;
+    border-top: 2px solid var(--neon-azul);
+}
+
+.dropdown-content.show {
+    display: block;
+    animation: slideDown 0.2s ease-out;
+}
+
+.dropdown-content a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 0;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 16px;
+    color: var(--texto-principal);
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #2c2c34;
+    cursor: pointer;
+}
+
+.dropdown-content a:last-child .dropdown-item {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #2a2a32;
+    color: var(--neon-azul);
+    padding-left: 20px;
+}
+
+.dropdown-item.excluir:hover {
+    color: #ff4d4d;
+}
+
+.dropdown-item.ativo:hover {
+    color: #4caf50;
+}
+
+.dropdown-item.reset:hover {
+    color: var(--neon-azul);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== MODAL DE CONFIRMAÇÃO ===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: var(--fundo-elemento);
+    border: 2px solid var(--neon-azul);
+    border-radius: 8px;
+    margin: 5% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.5);
+    animation: slideInDown 0.3s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 15px 20px;
+    background: linear-gradient(135deg, var(--neon-azul) 0%, #0097a7 100%);
+    color: var(--fundo-elemento);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--borda-fina);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.close {
+    color: var(--fundo-elemento);
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+.modal-body {
+    padding: 20px;
+    color: var(--texto-principal);
+    font-size: 0.95em;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#modalMensagem {
+    margin: 0;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--borda-fina);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-modal {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-cancelar {
+    background-color: transparent;
+    color: var(--texto-secundario);
+    border-color: var(--texto-secundario);
+}
+
+.btn-cancelar:hover {
+    background-color: var(--texto-secundario);
+    color: var(--fundo-elemento);
+}
+
+.btn-confirmar {
+    background-color: var(--neon-azul);
+    color: var(--fundo-elemento);
+    border-color: var(--neon-azul);
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.6);
+}
+
+.btn-confirmar:hover {
+    background-color: #008c9d;
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.9);
+}
+
+/* ===== AJUSTES NA TABELA PARA POSTS ===== */
+.col_info:last-child table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 0.9em;
+}
+
+.col_info:last-child table thead th {
+    padding: 8px 6px;
+    font-size: 0.85em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.col_info:last-child table tbody td {
+    padding: 8px 6px;
+    border-bottom: 1px dashed #3a3a42;
+    color: var(--texto-principal);
+    font-size: 0.9em;
+}
+
+.titulo-post {
+    font-weight: 600;
+    color: var(--neon-azul);
+    text-shadow: 0 0 4px rgba(0, 188, 212, 0.3);
+}
+
+.data-post {
+    white-space: nowrap;
+    font-size: 0.85em;
+    color: var(--texto-secundario);
+}
+
+.acoes-posts {
+    text-align: center;
+}
+
+.col_info:last-child .dropdown {
+    display: inline-block;
+    width: auto;
+}
+
+.col_info:last-child .btn-dropdown {
+    width: auto;
+    padding: 4px 8px;
+    font-size: 0.7em;
+}
+
+/* ===== AJUSTES ESPECÍFICOS PARA COLUNAS ===== */
+#info .col_info:first-child table thead th:nth-child(1),
+#info .col_info:first-child table tbody td:nth-child(1) {
+    width: 35px;
+}
+
+#info .col_info:first-child table thead th:nth-child(2),
+#info .col_info:first-child table tbody td:nth-child(2) {
+    width: 18%;
+}
+
+#info .col_info:first-child table thead th:nth-child(3),
+#info .col_info:first-child table tbody td:nth-child(3) {
+    width: 18%;
+}
+
+#info .col_info:first-child table thead th:nth-child(4),
+#info .col_info:first-child table tbody td:nth-child(4) {
+    width: 20%;
+}
+
+#info .col_info:first-child table thead th:nth-child(5),
+#info .col_info:first-child table tbody td:nth-child(5) {
+    width: 110px;
+}
+
+#info .col_info:first-child table thead th:nth-child(6),
+#info .col_info:first-child table tbody td:nth-child(6) {
+    width: 120px;
+}
+
+/* Posts table columns */
+#info .col_info:last-child table thead th:nth-child(1),
+#info .col_info:last-child table tbody td:nth-child(1) {
+    width: 40px;
+}
+
+#info .col_info:last-child table thead th:nth-child(2),
+#info .col_info:last-child table tbody td:nth-child(2) {
+    width: 30%;
+}
+
+#info .col_info:last-child table thead th:nth-child(3),
+#info .col_info:last-child table tbody td:nth-child(3) {
+    width: 20%;
+}
+
+#info .col_info:last-child table thead th:nth-child(4),
+#info .col_info:last-child table tbody td:nth-child(4) {
+    width: 80px;
+}
+
+#info .col_info:last-child table thead th:nth-child(5),
+#info .col_info:last-child table tbody td:nth-child(5) {
+    width: 60px;
+}
+
+/* O restante (Nome e Usuário) usará o espaço que sobrar de forma igualitária (Flex: 1) */
+
+/* Fundo estilo fibra de carbono */
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #121212;
+    background: linear-gradient(
+        135deg,
+        #121212 25%,
+        #1a1a1a 25%,
+        #1a1a1a 50%,
+        #121212 50%,
+        #121212 75%,
+        #1a1a1a 75%,
+        #1a1a1a
+    );
+    background-size: 40px 40px;
+
+    animation: move 4s linear infinite;
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 40px;
+    }
+}
+
+/* Dar mais espaço para a coluna de usuários (prioridade) e reduzir a segunda coluna */
+#info .col_info:first-child {
+    flex: 2;
+}
+#info .col_info:last-child {
+    flex: 0.8;
+}
+
+@media (max-width: 900px) {
+    .acoes {
+        width: auto;
+    }
+    #info {
+        flex-direction: column;
+    }
+}
+/* --- Responsividade (Mantida com ajustes de cor) --- */
+@media (max-width: 768px) {
+    header {
+        padding: 20px 0;
+    }
+    header .logo h1 {
+        font-size: 1.5em;
+    }
+    header .login_btn {
+        padding: 6px 20px;
+        font-size: 0.9em;
+    }
+    .inicio {
+        flex-direction: column;
+        padding: 20px 10px;
+    }
+    .coluna_esquerda,
+    .coluna_direita {
+        display: none; /* Esconder colunas laterais em telas pequenas */
+    }
+    .col_centro {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .form_post {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .feed .post {
+        padding: 15px 20px;
+        margin-bottom: 15px;
+    }
+    .feed .post h2 {
+        font-size: 1.3em;
+    }
+    .feed .post .post_header img {
+        width: 40px; /* Ajuste para telas menores */
+        height: 40px;
+    }
+    footer {
+        font-size: 0.8em;
+        padding: 15px 0;
+    }
+    .login_container {
+        padding: 30px;
+        max-width: 320px;
+    }
+}
+@media (max-width: 480px) {
+    header .logo img {
+        width: 60px;
+        margin-right: 5px;
+    }
+    header .logo h1 {
+        font-size: 1.2em;
+    }
+    .form_post input[type="text"],
+    .form_post textarea {
+        font-size: 0.9em;
+    }
+    .submit {
+        width: 40%;
+        font-size: 0.9em;
+    }
+    .feed .post h2 {
+        font-size: 1.1em;
+    }
+    .feed .post a {
+        font-size: 0.85em;
+        margin-right: 15px;
+    }
+    .login_container {
+        padding: 20px;
+        max-width: 280px;
+    }
+}
+
+/* ===== CARROSSEL DE IMAGENS ===== */
+
+.carousel-container {
+    background: linear-gradient(135deg, var(--fundo-elemento) 0%, #2a2a32 100%);
+    border: 1px solid var(--borda-fina);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px #0006;
+    position: sticky;
+    top: 10px;
+    max-height: 300px;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    background-color: #0a0a0d;
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+    transition: opacity 2s ease-in-out;
+    overflow: hidden;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.carousel-slide.fade {
+    animation: fade 1s ease-in-out;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- CORREÇÕES DE IMAGENS GLOBAIS --- */
+/* Força imagens a não extrapolarem seus containers */
+img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+/* Limita altura das imagens do carrossel para evitar estouro do layout */
+.carousel-container .carousel-slide img {
+    max-height: 280px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Avatares e imagens nos cards laterais */
+.posts_overall .card img,
+.famous-header img,
+.user-header img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--borda-fina);
+    background-color: #222;
+}
+
+/* Imagens inseridas no conteúdo dos posts (garante responsividade) */
+.post_content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    border-radius: 6px;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #00000080;
+    cursor: pointer;
+    transition: all 1s ease;
+    border: 1px solid #ffffff4d;
+    flex-shrink: 0;
+}
+
+.dot.active {
+    background-color: var(--neon-azul);
+    box-shadow: 0 0 10px #047d8dcc;
+    transform: scale(1.25);
+}
+
+.dot:hover {
+    background-color: #02515bcc;
+    transform: scale(1.15);
+}
+
+/* ===== ALERTAS ===== */
+
+.alert {
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 6px;
+    border-left: 4px solid;
+    font-weight: 500;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-left-color: #ff4081;
+    box-shadow: 0 0 15px #ff408166, inset 0 0 10px #ff40811a;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Garanta que o conteúdo do site apareça acima do padrão */
+header,
+main {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    #info {
+        flex-direction: column;
+    }
+
+    #info .col_info {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .col_info table {
+        font-size: 0.8em;
+    }
+
+    .col_info table thead th,
+    .col_info table tbody td {
+        padding: 6px 4px;
+    }
+
+    .btn-dropdown,
+    .btn-dropdown-sm {
+        padding: 4px 8px;
+        font-size: 0.75em;
+    }
+
+    .paginacao {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-paginacao {
+        width: 100%;
+    }
+
+    .busca-filtro {
+        flex-direction: column;
+    }
+
+    .input-busca,
+    .select-filtro {
+        width: 100%;
+    }
+}

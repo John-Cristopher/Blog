@@ -1,0 +1,190 @@
+{% extends 'base.html' %} {% block conteudo %}
+
+<div id="dashboard">
+    <!-- WIDGETS DE DADOS -->
+    <div id="dados" class="widgets-container">
+        <div class="widget widget-usuarios">
+            <div class="widget-icon">👥</div>
+            <div class="widget-content">
+                <h3>Total de Usuários</h3>
+                <p class="widget-valor">{{ total_usuarios[0] }}</p>
+                <div class="widget-metricas">
+                    <span class="metrica ativo">✓ Ativos: {{ usuarios|selectattr('ativo', 'equalto', 1)|list|length
+                        }}</span>
+                    <span class="metrica banido">✗ Banidos: {{ usuarios|selectattr('ativo', 'equalto', 0)|list|length
+                        }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget widget-posts">
+            <div class="widget-icon">📝</div>
+            <div class="widget-content">
+                <h3>Total de Posts</h3>
+                <p class="widget-valor">{{ total_posts[0] }}</p>
+                <div class="widget-metricas">
+                    <span class="metrica">Publicados: {{ total_posts[0] }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="info" class="info-container">
+        <!-- TABELA DE USUÁRIOS -->
+        <div class="col_info">
+            <div class="section-header">
+                <h3>Usuários</h3>
+                <div class="busca-filtro">
+                    <input type="text" id="buscaUsuarios" placeholder="🔍 Buscar..." class="input-busca">
+                    <select id="filtroStatus" class="select-filtro">
+                        <option value="">Todos</option>
+                        <option value="1">Ativos</option>
+                        <option value="0">Banidos</option>
+                    </select>
+                </div>
+            </div>
+            <table id="tabelaUsuarios">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Usuário</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr class="usuario-row" data-id="{{ u.idUsuario }}" data-nome="{{ u.nome.lower() }}"
+                        data-user="{{ u.user.lower() }}" data-email="{{ u.email.lower() }}" data-ativo="{{ u.ativo }}"
+                        {% if not u.ativo %}style="opacity: 0.7;" {% endif %}>
+                        <td>{{ u.idUsuario }}</td>
+                        <td>{{ u.nome }}</td>
+                        <td>{{ u.user }}</td>
+                        <td>{{ u.email }}</td>
+                        <td class="status-cell">
+                            {% if u.ativo %}
+                            <span class="status-badge status-ativo">✓ Ativo</span>
+                            {% else %}
+                            <span class="status-badge status-banido">✗ Banido</span>
+                            {% endif %}
+                        </td>
+                        <td class="acoes">
+                            <div class="dropdown">
+                                <button class="btn-dropdown">⋮ Ações</button>
+                                <div class="dropdown-content">
+                                    {% if u.ativo %}
+                                    <a href="#"
+                                        onclick="confirmarBanimento({{ u.idUsuario }}, '{{ u.nome }}'); return false;">
+                                        <span class="dropdown-item">🚫 Banir</span>
+                                    </a>
+                                    {% else %}
+                                    <a href="#"
+                                        onclick="confirmarReativacao({{ u.idUsuario }}, '{{ u.nome }}'); return false;">
+                                        <span class="dropdown-item ativo">✓ Reativar</span>
+                                    </a>
+                                    {% endif %}
+
+                                    {% if session.get('idUsuario') != u.idUsuario %}
+                                    <a href="#"
+                                        onclick="confirmarExclusao({{ u.idUsuario }}, '{{ u.nome }}'); return false;">
+                                        <span class="dropdown-item excluir">🗑️ Excluir</span>
+                                    </a>
+                                    {% endif %}
+
+                                    <a href="#"
+                                        onclick="confirmarResetSenha({{ u.idUsuario }}, '{{ u.nome }}'); return false;">
+                                        <span class="dropdown-item reset">🔑 Reset Senha</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Paginação Usuários -->
+            <div class="paginacao">
+                <button class="btn-paginacao" id="btnAnteriorUsuarios" onclick="paginaAnterior('usuarios')">←
+                    Anterior</button>
+                <span id="infoPaginacaoUsuarios">Página <span id="paginaAtualUsuarios">1</span> de <span
+                        id="totalPaginasUsuarios">1</span></span>
+                <button class="btn-paginacao" id="btnProximoUsuarios" onclick="paginaProxima('usuarios')">Próximo
+                    →</button>
+            </div>
+        </div>
+
+        <!-- TABELA DE POSTS -->
+        <div class="col_info">
+            <div class="section-header">
+                <h3>Posts</h3>
+                <div class="busca-filtro">
+                    <input type="text" id="buscaPosts" placeholder="🔍 Buscar..." class="input-busca">
+                </div>
+            </div>
+            <table id="tabelaPosts">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in posts %}
+                    <tr class="post-row" data-id="{{ p.idPost }}" data-titulo="{{ p.titulo.lower() }}">
+                        <td>{{ p.idPost }}</td>
+                        <td class="titulo-post">{{ p.titulo }}</td>
+                        <td>{{ p.nome_autor if p.get('nome_autor') else 'Desconhecido' }}</td>
+                        <td class="data-post">{{ p.dataPost.strftime('%d/%m/%y') if p.get('dataPost') else 'N/A' }}</td>
+                        <td class="acoes-posts">
+                            <div class="dropdown">
+                                <button class="btn-dropdown btn-dropdown-sm">⋮</button>
+                                <div class="dropdown-content">
+                                    <a href="#"
+                                        onclick="confirmarExcluirPost({{ p.idPost }}, '{{ p.titulo }}'); return false;">
+                                        <span class="dropdown-item excluir">🗑️ Excluir</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Paginação Posts -->
+            <div class="paginacao">
+                <button class="btn-paginacao" id="btnAnteriorPosts" onclick="paginaAnterior('posts')">←
+                    Anterior</button>
+                <span id="infoPaginacaoPosts">Página <span id="paginaAtualPosts">1</span> de <span
+                        id="totalPaginasPosts">1</span></span>
+                <button class="btn-paginacao" id="btnProximoPosts" onclick="paginaProxima('posts')">Próximo →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação -->
+<div id="modalConfirmacao" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitulo">Confirmação</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p id="modalMensagem"></p>
+        </div>
+        <div class="modal-footer">
+            <button id="btnCancelar" class="btn-modal btn-cancelar">Cancelar</button>
+            <button id="btnConfirmar" class="btn-modal btn-confirmar">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+{% endblock %}

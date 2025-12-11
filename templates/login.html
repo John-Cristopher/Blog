@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block conteudo %}
+<main id="login_main">
+    <div class="login_container">
+        <h1>Login</h1>
+        <form class="login_form" method="POST" action="/login">
+            <input type="text" name="username" placeholder="Usuário..." required />
+            <input type="password" name="password" placeholder="Senha..." required />
+            <p>Não tem uma conta? <a href="/signin">Cadastre-se</a> agora!</p>
+            <button type="submit" class="login_btn">Entrar</button>
+        </form>
+        {% with msg = get_flashed_messages()|first %} {% if msg %}
+        <p class="flash">{{ msg }}</p>
+        {% endif %} {% endwith %}
+        <div class="back_to_blog">
+            <a href="/">Voltar para o Blog</a>
+        </div>
+    </div>
+</main>
+{% endblock %}
